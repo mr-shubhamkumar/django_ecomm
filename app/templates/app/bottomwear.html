@@ -4,11 +4,11 @@ Now{%endblock title %} {% block main-content %}
   <div class="row">
     <div class="col-sm-3">
       <div class="list-group">
-        <a href="{% url "mobile" %}" class="list-group-item list-group-item-action" aria-current="true">All Mobile</a>
+        <a href="{% url "botttomwear" %}" class="list-group-item list-group-item-action" aria-current="true">All Bottom Wear</a>
 
-        {% for mbrand in mobile_brand %}
+        {% for bwbrand in bottomwear_brand %}
         
-        <a href="{% url "mobiledata" mbrand %}" class="list-group-item list-group-item-action" aria-current="true">{{ mbrand }}</a>
+        <a href="{% url "botttomweardata" bwbrand %}" class="list-group-item list-group-item-action" aria-current="true">{{ bwbrand }}</a>
         {% endfor %}
 
 
@@ -20,11 +20,11 @@ Now{%endblock title %} {% block main-content %}
 
       <div class="col-sm-8 offset-sm-1 border-1">
         <div class="row">
-          {% for product in mobiles %}
+          {% for product in bottomwear %}
           <div class="col-sm-4 text-center mb-4">
             <a href="{% url "product-detail" product.id %}" class='btn'>
               <div class="item">
-                <img src="{{product.product_image.url}}" alt="" height='250px'>
+                <img src="{{product.product_image.url}}" alt="" height='150px' with='200'>
               </div>
               <div class="fw-bold">{{product.title}}</div>
               <div class="fw-bold">Rs. {{product.discounted_price}}</div>
