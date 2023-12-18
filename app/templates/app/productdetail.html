@@ -10,19 +10,35 @@
         </div>
         <div class="col-sm-5 offset-sm-1">
             <h2>Product Title: {{product.title}}</h2>
+            <h5>Product Brand: {{product.brand}}</h5>
             <hr>
             <p>{{product.discription}}</p> <br>
             <h4>Rs. {{product.discounted_price}} <small class="fw-light text-decoration-line-through">{{product.selling_price}}</small></h4> <br>
-
+            {% if request.user.is_authenticated %}
+            
+            {% if item_already_in_cart %}
+            <a href="/cart" class='btn btn-primary shadow px-5 py-2 ms-4'>Go To Cart</a>
+            {% else %}
             <form action="/add-to-cart" class='d-inline'>
                 {% comment %} {% csrf_token %} {% endcomment %}
                 <input type="hidden" name="prod_id"  id="prod_id" value={{product.id}}>
                 <button type='submit' class='btn btn-primary shadow px-5 py-2 ms-4'>Add To Cart</button>
             </form>
+            {% endif %}
+            {% endif %}
+
+            {% if not request.user.is_authenticated %}
+            <form action="/add-to-cart" class='d-inline'>
+                {% comment %} {% csrf_token %} {% endcomment %}
+                <input type="hidden" name="prod_id"  id="prod_id" value={{product.id}}>
+                <button type='submit' class='btn btn-primary shadow px-5 py-2 ms-4'>Add To Cart</button>
+            </form>
+            {% endif %}
+        
 
 
             
-            <a href="{% url 'buy-now' %}" class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now</a>
+            <a href="{% url 'showcart' %}" class="btn btn-danger shadow px-5 py-2 ms-4">Buy Now</a>
             <h5 class="mt-5">Available Offers</h5>
             <ul>
                 <li>Bank Offer 5% Unlimited Cashback on Flipkart Axis Bank Credit</li>

@@ -17,6 +17,8 @@ urlpatterns = [
     path('plus-cart/',views.plus_cart, name='plus-cart'),
     path('minus-cart/',views.minus_cart, name='minus-cart'),
     path('remove-cart/',views.remove_cart, name='remove-cart'),
+    path('checkout/', views.checkout, name='checkout'),
+    path('paymentdone/', views.paymentdone, name='paymentdone'),
 
     path('buy/', views.buy_now, name='buy-now'),
 
@@ -44,7 +46,7 @@ urlpatterns = [
 
 
 # All Auth Section Start
-    path('login/',auth_view.LoginView.as_view(template_name='app/login.html', authentication_form=LoginForm,), name='login'),
+    path('accounts/login/',auth_view.LoginView.as_view(template_name='app/login.html', authentication_form=LoginForm,), name='login'),
 
      path('logout/', auth_view.LogoutView.as_view(next_page='login'), name='logout'),
 
@@ -64,7 +66,6 @@ urlpatterns = [
 # All Auth Section End
 
 
-    path('checkout/', views.checkout, name='checkout'),
 
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

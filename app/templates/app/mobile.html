@@ -27,6 +27,7 @@ Now{%endblock title %} {% block main-content %}
                 <img src="{{product.product_image.url}}" alt="" height='250px'>
               </div>
               <div class="fw-bold">{{product.title}}</div>
+              <div class="fw-bold"> {{product.brand}}</div>
               <div class="fw-bold">Rs. {{product.discounted_price}}</div>
               <small class='fw-light text-text-decoration-line-through'>{{product.selling_price}}</small>
             </a>
