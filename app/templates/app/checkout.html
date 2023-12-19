@@ -32,7 +32,7 @@
     <div class="col-sm-5 offset-sm-1">
       <h4>Select Shipping Address</h4>
       <hr />
-      <form action="/paymentdone">
+      <form action="/paymentdone" id='myform'>
         {% csrf_token %}
         <div>
           {% for add in add %}
@@ -42,16 +42,20 @@
               <p>{{add.locality}} > {{add.city}} > {{add.zipcode}} > {{add.state}}</p>
             </div>
           </div>
-          <div class="form-check mt-2 mb-5">
+          <div class="form-check mt-1 mb-1">
             <input class="form-check-input" type="radio" name='cutid' id='custadd{{forloop.counter}}'  value="{{add.id}}" />
             <label class="form-check-label fw-bold" for=""> Address: {{ forloop.counter}}</label>
           </div>
           {% endfor %}
 
           <div class="text-end">
-            <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">
+            {% comment %} <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">
               Continue
-            </button>
+            </button> {% endcomment %}
+
+
+            {% comment %} PayPal Checkout Button {% endcomment %}
+            <div id="paypal-button-container"></div>
           </div>
         </div>
       </form>
@@ -59,3 +63,70 @@
   </div>
 </div>
 {% endblock main-content %}
+{% block peyment-geteway %}
+
+<script src="https://www.paypal.com/sdk/js?client-id=ARvHmTU2pYRPOvCS9bUV6f4nRSPb9bNV9kOKttBYDltcPvSKvv7eFN7UF8OX9S_dH7LvE0AKAdFFZ2rD&components=YOUR_COMPONENTS"></script>
+    
+<script>
+
+  // Render the PayPal button
+
+  paypal.Button.render({
+
+      // Set your environment
+
+      env: 'sandbox', // sandbox | production
+
+      // Specify the style of the button
+
+      style: {
+          layout: 'vertical',  // horizontal | vertical
+          size:   'medium',    // medium | large | responsive
+          shape:  'rect',      // pill | rect
+          color:  'gold'       // gold | blue | silver | black
+      },
+
+      // Specify allowed and disallowed funding sources
+      //
+      // Options:
+      // - paypal.FUNDING.CARD
+      // - paypal.FUNDING.CREDIT
+      // - paypal.FUNDING.ELV
+
+      funding: {
+          allowed: [ paypal.FUNDING.CARD, paypal.FUNDING.CREDIT ],
+          disallowed: [ ]
+      },
+
+      // PayPal Client IDs - replace with your own
+      // Create a PayPal app: https://developer.paypal.com/developer/applications/create
+
+      client: {
+          sandbox:    'ARvHmTU2pYRPOvCS9bUV6f4nRSPb9bNV9kOKttBYDltcPvSKvv7eFN7UF8OX9S_dH7LvE0AKAdFFZ2rD',
+          production: '<insert production client id>'
+      },
+
+      payment: function(data, actions) {
+          return actions.payment.create({
+              payment: {
+                  transactions: [
+                      {
+                          amount: { total: '{{totalamount}}', currency: 'USD' }
+                      }
+                  ]
+              }
+          });
+      },
+
+      onAuthorize: function(data, actions) {
+          return actions.payment.execute().then(function() {
+              // window.alert('Payment Complete!');
+              console.log(data);
+              document.getElementById('myform').submit()
+          });
+      }
+
+  }, '#paypal-button-container');
+
+</script>
+{% endblock peyment-geteway %}

@@ -55,6 +55,7 @@ $('.minus-cart').click(function() {
             prod_id:id
         },
         success: function (response) {
+            
             eml.innerText = response.quantuty
             $("#amount").text(response.amount);
             $("#totalamount").text(response.totalamount);
