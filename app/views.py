@@ -47,6 +47,12 @@ def add_to_cart(request):
     Cart(user=user, product=product).save()
     return redirect('/cart')
 
+def cart_item(request):
+    cart = Cart.objects.filter(user=request.user)
+    num_cart = cart.count()
+    print(num_cart)
+    return JsonResponse({'data':num_cart})
+
 @login_required
 def show_cart(request):
     if request.user.is_authenticated:
@@ -227,6 +233,8 @@ class CustomerRegistrationView(View):
             form.save()
             messages.success(request, "Registretion successfully")
         return render(request, 'app/customerregistration.html', {'form': form})
+
+
 
 
 @method_decorator(login_required, name='dispatch')

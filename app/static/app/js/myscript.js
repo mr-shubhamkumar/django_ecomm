@@ -22,6 +22,21 @@ $('#slider1, #slider2, #slider3').owlCarousel({
     }
 })
 
+// ṇum of cart item 
+function CartItem() {
+    $.ajax({
+        type: "GET",
+        url: "/cart-item",
+        dataType: "json",
+        success: function (data) {
+            console.log(data.data);
+            $('.numCart').text(data.data);
+
+            
+        }
+    });
+  }
+  CartItem();
 
 // product qty plus
 $('.plus-cart').click(function() {
@@ -76,6 +91,7 @@ $('.remove-cart').click(function() {
             prod_id:id
         },
         success: function (response) {
+            CartItem();
             console.log(response);
             $("#amount").text(response.amount);
             $("#totalamount").text(response.totalamount);

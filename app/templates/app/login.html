@@ -3,10 +3,33 @@
 {% block title %}Login{% endblock title %}
 {% block main-content %}
 <div class="container">
- <div class="row my-3">
-  <div class="col-sm-6 offset-sm-3">
-   <h3>Login</h3>
-   <hr>
+ <div class="row ">
+  <div class="col-sm-6 offset-sm-3 ">
+
+
+    <div class="container d-flex ">
+
+      <div class="d-flex flex-column">
+        <strong>Admin UserName :</strong>
+        <strong>Admin Password :</strong>
+        <hr>
+        <strong>UserName :</strong> 
+        <strong>User Password :</strong> 
+         
+      </div>
+
+      <div class="d-flex flex-column">
+         <strong  class=''>admin</strong>
+         <strong  class=''>admin</strong>
+        <hr>
+         <strong class=''> shubham</strong>
+         <strong  class=''>hellopassword</strong>
+      </div>
+      
+    </div>
+    <h3 class='text-center'>Login</h3>
+    <hr>
+
    <form action="" method="post" novalidate class="shadow p-5">
     {% if messages %}
     {% for message in messages %}
